@@ -49,3 +49,13 @@ class IssuedBook(models.Model):
     due_date = models.DateField(default=expiry)
     return_date = models.DateField(null=True, blank=True)
     is_lost = models.BooleanField(default=False)
+
+    @property
+    def is_late(self):
+        """Return true is return date is later than due date."""
+        return self.return_date > self.due_date
+
+    @property
+    def total_due_days(self):
+        """Return how many days overdue."""
+        return (self.return_date - self.due_date).days
