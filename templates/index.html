@@ -1,0 +1,25 @@
+{%extends 'base.html' %}
+{%load static%}
+{%block content%}
+<div class="jumbotron">
+
+  <div class="row">
+
+    <div class="col-lg-6">
+      <img src="{% static "images/AdminIcon.png" %}" width="30%" height="50%"  alt=""><br><br>
+        <a class="btn btn-danger btn-lg" style="text-align:center;
+          border-radius:0px;" href="/login" role="button">Login as Librarian</a>
+
+    </div>
+
+    <div class="col-lg-6">
+      <img src="{% static "images/student.png" %}" width="30%" height="50%"  alt=""><br><br>
+      <a class="btn btn-primary btn-lg" style="border-radius:0px;"
+        href="/login" role="button">Login as Student</a>
+    </div>
+  </div>
+<hr class="my-4">
+
+</div>
+
+{%endblock content%}

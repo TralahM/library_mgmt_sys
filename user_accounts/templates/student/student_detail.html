@@ -1,0 +1,39 @@
+{%extends 'base.html' %}
+{%block content %}
+<h1>Student Details</h1>
+<h2>{{object}}</h2>
+<h3>Borrowed books</h3>
+
+<table class="table table-fluid">
+    <thead>
+        <tr>
+            <th>Is Lost</th>
+            <th>Issued Date</th>
+            <th>IssuedBook</th>
+            <th>Student</th>
+            <th>Due Date</th>
+            <th>Return Date</th>
+            <th>View</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for bbook in object.borrowed_books.all %}
+        <tr>
+            <td>{{ bbook.is_lost }}</td>
+            <td>{{ bbook.issued_date }}</td>
+            <td>{{ bbook.book }}</td>
+            <td>{{ bbook.student }}</td>
+            <td>{{ bbook.due_date }}</td>
+            <td>{{ bbook.return_date }}</td>
+            <td><a href="{% url "issued_book_detail" bbook.id %}">view</a></td>
+            {% if user.is_librarian %}
+            <td><a href="{% url "issued_book_update" bbook.id %}">edit</a></td>
+            <td><a href="{% url "issued_book_delete" bbook.id %}">delete</a></td>
+            {% endif %}
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+{% endblock content %}

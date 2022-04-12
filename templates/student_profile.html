@@ -1,0 +1,32 @@
+{%extends 'base.html' %}
+{%block content%}
+    <div class="jumbotron">
+        <p class="lead">{{ user }}</p>
+    </div>
+    <table class="table table-fluid">
+        <thead>
+            <tr>
+                <th>Book ISBN</th>
+                <th>Book Name</th>
+                <th>Book Dept</th>
+                <th>Book Author</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for Book in user.borrowed_books %}
+                <tr>
+                    <td>{{ Book.isbn }}</td>
+                    <td>{{ Book.name }}</td>
+                    <td>{{ Book.department }}</td>
+                    <td>{{ Book.author }}</td>
+                    <td><a href="{% url "book_detail" Book.id %}">view</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+{%endblock content%}

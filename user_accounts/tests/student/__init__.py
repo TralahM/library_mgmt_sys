@@ -1,0 +1,5 @@
+from .student_delete_test import StudentDeleteTestCase
+from .student_update_test import StudentUpdateTestCase
+from .student_detail_test import StudentDetailTestCase
+from .student_create_test import StudentCreateTestCase
+from .student_list_test import StudentListTestCase

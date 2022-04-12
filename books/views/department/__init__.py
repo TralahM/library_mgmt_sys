@@ -1,0 +1,5 @@
+from .department_delete import DepartmentDeleteView
+from .department_update import DepartmentUpdateView
+from .department_detail import DepartmentDetailView
+from .department_create import DepartmentCreateView
+from .department_list import DepartmentListView

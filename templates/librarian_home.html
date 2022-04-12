@@ -1,0 +1,73 @@
+{%extends 'base.html'%}
+{%block navbar%}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/department/list/">Departments</a>
+      </li>
+      <li class="nav-item" ><a class="nav-link" href="/book/create/">Add Books</a><li></li>
+      <li class="nav-item" ><a class="nav-link" href="/book/list/">View All Books</a><li></li>
+      <li class="nav-item" ><a class="nav-link" href="/issued_book/create/">Issue a Book</a><li></li>
+      <li class="nav-item" ><a class="nav-link" href="/issued_book/list/">View All Issued Books</a><li></li>
+      <li class="nav-item" ><a class="nav-link" href="/user/create/">Add a New User</a><li></li>
+      <li class="nav-item" ><a class="nav-link" href="/student/list/">Students</a><li></li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{%endblock navbar%}
+{% block content %}
+    <div class="jumbotron">
+        <p class="lead">Hello {{user}}</p>
+        <p>Use the Navigation Bar to Navigate Around.</p>
+        <h2 class="form-title">Books Available</h2>
+
+        <table class="table table-fluid">
+            <thead>
+                <tr>
+                    <th>Book ISBN</th>
+                    <th>Book Name</th>
+                    <th>Book Dept</th>
+                    <th>Book Author</th>
+                    <th>View</th>
+                    {% if user.is_librarian %}
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    {%endif%}
+                </tr>
+            </thead>
+            <tbody>
+                {% for Book in object_list %}
+                    <tr>
+                        <td>{{ Book.isbn }}</td>
+                        <td>{{ Book.name }}</td>
+                        <td>{{ Book.department }}</td>
+                        <td>{{ Book.author }}</td>
+                        <td><a href="{% url "book_detail" Book.id %}">view</a></td>
+                        {% if user.is_librarian %}
+                            <td><a href="{% url "book_update" Book.id %}">edit</a></td>
+                            <td><a href="{% url "book_delete" Book.id %}">delete</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if user.is_librarian %}
+            <a href="{% url "book_create" %}">New</a>
+        {% endif %}
+    </div>
+    </div>
+
+{%endblock content%}

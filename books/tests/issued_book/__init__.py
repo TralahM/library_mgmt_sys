@@ -1,0 +1,5 @@
+from .issued_book_delete_test import IssuedBookDeleteTestCase
+from .issued_book_update_test import IssuedBookUpdateTestCase
+from .issued_book_detail_test import IssuedBookDetailTestCase
+from .issued_book_create_test import IssuedBookCreateTestCase
+from .issued_book_list_test import IssuedBookListTestCase

@@ -1,0 +1,44 @@
+{%extends 'base.html' %}
+{%block content %}
+<h2 class="form-title">IssuedBook</h2>
+
+<table class="table table-fluid">
+    <thead>
+        <tr>
+            <th>Is Lost</th>
+            <th>Issued Date</th>
+            <th>IssuedBook</th>
+            <th>Student</th>
+            <th>Due Date</th>
+            <th>Return Date</th>
+            <th>View</th>
+            {% if user.is_librarian %}
+            <th>Edit</th>
+            {%endif%}
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for IssuedBook in object_list %}
+        <tr>
+            <td>{{ IssuedBook.is_lost }}</td>
+            <td>{{ IssuedBook.issued_date }}</td>
+            <td>{{ IssuedBook.book }}</td>
+            <td>{{ IssuedBook.student }}</td>
+            <td>{{ IssuedBook.due_date }}</td>
+            <td>{{ IssuedBook.return_date }}</td>
+            <td><a href="{% url "issued_book_detail" IssuedBook.id %}">view</a></td>
+            {% if user.is_librarian %}
+            <td><a href="{% url "issued_book_update" IssuedBook.id %}">edit</a></td>
+            <td><a href="{% url "issued_book_delete" IssuedBook.id %}">delete</a></td>
+            {%endif%}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if user.is_librarian %}
+<a href="{% url "issued_book_create" %}">New</a>
+{% endif %}
+</div>
+{%endblock content%}

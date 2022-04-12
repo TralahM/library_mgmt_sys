@@ -1,0 +1,36 @@
+{%extends 'base.html' %}
+{%block content %}
+<h2 class="form-title">"IssuedBook Details"</h2>
+<h1>IssuedBook Details</h1>
+<h2>{{object}}</h2>
+<table class="table table-fluid">
+    <thead>
+        <tr>
+            <th>Is Lost</th>
+            <th>Issued Date</th>
+            <th>IssuedBook</th>
+            <th>Student</th>
+            <th>Due Date</th>
+            <th>Return Date</th>
+            <th>View</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ object.is_lost }}</td>
+            <td>{{ object.issued_date }}</td>
+            <td>{{ object.book }}</td>
+            <td>{{ object.student }}</td>
+            <td>{{ object.due_date }}</td>
+            <td>{{ object.return_date }}</td>
+            <td><a href="{% url "issued_book_detail" object.id %}">view</a></td>
+            {% if user.is_librarian %}
+            <td><a href="{% url "issued_book_update" object.id %}">edit</a></td>
+            <td><a href="{% url "issued_book_delete" object.id %}">delete</a></td>
+            {% endif %}
+        </tr>
+    </tbody>
+</table>
+{% endblock content %}

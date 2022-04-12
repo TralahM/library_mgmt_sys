@@ -1,0 +1,36 @@
+{%extends 'base.html' %}
+{%block content %}
+<h2 class="form-title">Student</h2>
+
+<table class="table table-fluid">
+    <thead>
+        <tr>
+            <th>Library Card Number</th>
+            <th>Student</th>
+            <th>View</th>
+            {% if user.is_librarian %}
+            <th>Edit</th>
+            <th>Delete</th>
+            {%endif%}
+        </tr>
+    </thead>
+    <tbody>
+        {% for Student in object_list %}
+        <tr>
+            <td>{{ Student.library_card_number }}</td>
+            <td>{{ Student.user }}</td>
+            <td><a href="{% url "student_detail" Student.pk %}">view</a></td>
+            {% if user.is_librarian %}
+            <td><a href="{% url "student_update" Student.pk %}">edit</a></td>
+            <td><a href="{% url "student_delete" Student.pk %}">delete</a></td>
+            {%endif%}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if user.is_librarian %}
+<a href="{% url "student_create" %}">New</a>
+{% endif %}
+</div>
+{%endblock content%}

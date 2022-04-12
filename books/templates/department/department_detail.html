@@ -1,0 +1,36 @@
+{%extends 'base.html' %}
+{%block content %}
+<h1>Department Details</h1>
+<h2>{{object}}</h2>
+<h3> Books Available Under this Department.</h3>
+
+<table class="table table-fluid">
+    <thead>
+        <tr>
+            <th>Book ISBN</th>
+            <th>Book Name</th>
+            <th>Book Dept</th>
+            <th>Book Author</th>
+            <th>View</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for Book in object.book_set.all %}
+        <tr>
+            <td>{{ Book.isbn }}</td>
+            <td>{{ Book.name }}</td>
+            <td>{{ Book.department }}</td>
+            <td>{{ Book.author }}</td>
+            <td><a href="{% url "book_detail" Book.id %}">view</a></td>
+            {% if user.is_librarian %}
+            <td><a href="{% url "book_update" Book.id %}">edit</a></td>
+            <td><a href="{% url "book_delete" Book.id %}">delete</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

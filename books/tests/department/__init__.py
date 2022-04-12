@@ -1,0 +1,5 @@
+from .department_delete_test import DepartmentDeleteTestCase
+from .department_update_test import DepartmentUpdateTestCase
+from .department_detail_test import DepartmentDetailTestCase
+from .department_create_test import DepartmentCreateTestCase
+from .department_list_test import DepartmentListTestCase

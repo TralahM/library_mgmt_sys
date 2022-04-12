@@ -1,0 +1,34 @@
+{%extends 'base.html' %}
+{%block content %}
+<h2 class="form-title">Department</h2>
+
+<table class="table table-fluid">
+    <thead>
+        <tr>
+            <th>Department</th>
+            <th>View</th>
+            {% if user.is_librarian %}
+            <th>Edit</th>
+            <th>Delete</th>
+            {%endif%}
+        </tr>
+    </thead>
+    <tbody>
+        {% for Department in object_list %}
+        <tr>
+            <td>{{ Department }}</td>
+            <td><a href="{% url "department_detail" Department.pk %}">view</a></td>
+            {% if user.is_librarian %}
+            <td><a href="{% url "department_update" Department.pk %}">edit</a></td>
+            <td><a href="{% url "department_delete" Department.pk %}">delete</a></td>
+            {%endif%}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if user.is_librarian %}
+<a href="{% url "department_create" %}">New</a>
+{% endif %}
+</div>
+{%endblock content%}
