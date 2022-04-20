@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views
-from django.conf.urls import url, include
+from django.conf.urls import re_path, include
 from .views import before_login, after_login
 
 urlpatterns = [
@@ -33,6 +33,6 @@ urlpatterns = [
     ),
     path("", include("user_accounts.urls")),
     path("", include("books.urls")),
-    url(r"^$", before_login, name="before_login"),
-    url(r"^after_login$", after_login, name="after_login"),
+    re_path(r"^$", before_login, name="before_login"),
+    re_path(r"^after_login$", after_login, name="after_login"),
 ]
