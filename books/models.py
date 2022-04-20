@@ -53,9 +53,20 @@ class IssuedBook(models.Model):
     @property
     def is_late(self):
         """Return true is return date is later than due date."""
-        return self.return_date > self.due_date
+        if self.return_date:
+            return self.return_date > self.due_date
+        else:
+            return False
 
     @property
     def total_due_days(self):
         """Return how many days overdue."""
-        return (self.return_date - self.due_date).days
+        if self.return_date:
+            return (self.return_date - self.due_date).days
+        else:
+            return 0
+
+    @property
+    def due_amount(self):
+        """Return Due amount."""
+        return self.total_due_days * 20.00

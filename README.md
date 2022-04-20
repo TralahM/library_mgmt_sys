@@ -23,3 +23,6 @@ Then Navigate to the url displayed on the console.
 `admin@example.com` password `admin` for a librarian
 
 `student@example.com`  password `password` for student.
+
+
+The default password is `password`

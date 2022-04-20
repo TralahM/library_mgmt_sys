@@ -1,6 +1,10 @@
 {%extends 'base.html' %}
 {%block content %}
 <h2 class="form-title">IssuedBook</h2>
+<form method="GET">
+    <input type="text" name="q"value="{{request.GET.q}}">
+    <input class="button btn-primary" type="submit" value="Search">
+</form>
 
 <table class="table table-fluid">
     <thead>
@@ -14,8 +18,9 @@
             <th>View</th>
             {% if user.is_librarian %}
             <th>Edit</th>
-            {%endif%}
             <th>Delete</th>
+            {%endif%}
+            <th>Fees</th>
         </tr>
     </thead>
     <tbody>
@@ -31,7 +36,8 @@
             {% if user.is_librarian %}
             <td><a href="{% url "issued_book_update" IssuedBook.id %}">edit</a></td>
             <td><a href="{% url "issued_book_delete" IssuedBook.id %}">delete</a></td>
-            {%endif%}
+            {% endif %}
+        <td>{%if IssuedBook.is_late %}{{IssuedBook.due_amount}} {%else %} 0.00 {%endif%}</td>
         </tr>
         {% endfor %}
     </tbody>

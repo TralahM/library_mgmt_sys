@@ -1,6 +1,10 @@
 {%extends 'base.html' %}
 {%block content %}
 <h2 class="form-title">Book</h2>
+<form method="GET">
+    <input type="text" name="q"value="{{request.GET.q}}">
+    <input class="button btn-primary" type="submit" value="Search">
+</form>
 
 <table class="table table-fluid">
     <thead>

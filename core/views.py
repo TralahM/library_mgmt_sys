@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 # from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -20,7 +21,17 @@ def after_login(request):
     """After login show appropriate home page."""
     Books = Book.objects.all()
     if request.user.utype == "STUDENT":
-        borrowed_books = IssuedBook.objects.filter(student_id=request.user.id)
+        if request.GET.get("q"):
+            borrowed_books = IssuedBook.objects.filter(
+                (
+                    Q(student_name__icontains=request.GET.get("q"))
+                    | Q(book_name__icontains=request.GET.get("q"))
+                    & Q(student_id=request.user.pk)
+                )
+            )
+        else:
+            borrowed_books = IssuedBook.objects.filter(
+                student_id=request.user.pk)
         return render(
             request,
             "student_profile.html",
@@ -30,6 +41,13 @@ def after_login(request):
         )
     else:
         # render librarian request.
+        if request.GET.get("q"):
+            Books = Book.objects.filter(
+                (
+                    Q(name__icontains=request.GET.get("q"))
+                    | Q(author__icontains=request.GET.get("q"))
+                )
+            )
         return render(
             request,
             "librarian_home.html",
