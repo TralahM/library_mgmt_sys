@@ -12,7 +12,10 @@ def before_login(request):
         if request.user.is_librarian:
             return redirect("after_login")
         else:
-            return redirect(f"/student/detail/{request.user.student.pk}/")
+            try:
+                return redirect(f"/student/detail/{request.user.student.pk}/")
+            except Exception:
+                pass
     return render(request, "index.html")
 
 
